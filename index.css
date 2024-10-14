@@ -1,0 +1,87 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.body{
+    background-color: #FDF6E3;
+    font-family: "Montserrat";
+}
+
+.input{
+    background-color: #cff4fc;
+    border: 1px solid black;
+}
+
+.form-titulo{
+    width: 100%;
+    padding-bottom: 2px;
+    border-bottom: 1px solid black;
+}
+
+.tittle{
+    margin: 30px auto 0 auto;
+    width: max-content;
+    font-size: 30px;
+}
+
+.form-titulo,
+.tittle,
+.tabla-title {
+    font-weight: 700;
+    color: #FF6F61;
+}
+
+.form-titulo,
+.tabla-title{
+    font-size: 20px;
+}
+
+.form{
+    background-color: #FFFFFF;
+    margin-top: 40px;
+    padding: 30px;
+    font-weight: 400;
+    box-shadow: 0px 5px 10px 1px black;
+}
+
+.tabla{
+    background-color:#FFFFFF;
+    box-shadow: 0px 5px 10px 1px black;
+    padding: 30px 30px 5px 30px;
+    margin-bottom: 30px;
+}
+
+table{
+    text-align: center;
+    border: 1px solid black;
+}
+
+.savebutton{
+    width: 100%;
+    font-weight: 600;
+    padding: 10px;
+    border-radius: 7px;
+    background-color: #cff4fc;
+    border: 1px solid black;
+}
+
+.delete{
+    background-color:#FFABAB;
+}
+
+.delete:focus,
+.edit:focus{
+    box-shadow: none;
+}
+
+.delete:hover,
+.edit:hover{
+    border: 2px solid black;
+}
+
+.edit{
+    background-color:#A3D9A5;
+}
+

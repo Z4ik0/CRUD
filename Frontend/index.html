@@ -11,6 +11,8 @@
     />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="index.css" />
+    <!-- SweetAlert2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <title>CRUD</title>
   </head>
 
@@ -38,6 +40,9 @@
                 placeholder="Introduce cualquier texto..."
                 class="form-control"
                 required
+                minlength="4"
+                pattern="^[a-zA-ZÑñ0-9]+( [a-zA-ZÑñ0-9]+)*$"
+                title="El usuario debe tener al menos 4 caracteres, solo letras, números y un espacio entre palabras. Se permite la letra Ñ."
               />
             </div>
             <div class="col">
@@ -48,6 +53,9 @@
                 class="form-control"
                 placeholder="Introduce una contraseña segura"
                 required
+                minlength="6"
+                pattern="^\S+$"
+                title="La contraseña debe tener al menos 6 caracteres y no puede contener espacios."
               />
             </div>
           </div>
@@ -56,9 +64,11 @@
               <label for="image" class="form-label">Imagen</label>
               <input
                 id="image"
-                accept="image/*"
+                accept="image/jpeg, image/png, image/gif"
                 type="file"
                 class="form-control"
+                required
+                title="Solo se permiten imágenes en formato JPG, PNG o GIF."
               />
             </div>
             <div class="col">
@@ -67,8 +77,8 @@
                 id="date"
                 type="date"
                 class="form-control"
-                placeholder="Introduce una contraseña segura"
                 required
+                title="Por favor, selecciona una fecha válida."
               />
             </div>
           </div>
@@ -80,6 +90,7 @@
               id="long-text"
               placeholder="Introduce mucho texto"
               required
+              title="Por favor, introduce un comentario."
             ></textarea>
           </div>
           <div class="buttons">
@@ -148,28 +159,35 @@
                     <div class="mb-3">
                       <label for="edit-texto" class="form-label">Usuario</label>
                       <input
+                        id="edit-texto"
                         type="text"
                         class="form-control"
-                        id="edit-texto"
                         required
+                        minlength="4"
+                        pattern="^[a-zA-ZÑñ0-9]+( [a-zA-ZÑñ0-9]+)*$"
+                        title="El usuario debe tener al menos 4 caracteres, solo letras, números y un espacio entre palabras. Se permite la letra Ñ."
                       />
                     </div>
                     <div class="mb-3">
                       <label for="edit-password" class="form-label">Contraseña</label>
                       <input
+                        id="edit-password"
                         type="password"
                         class="form-control"
-                        id="edit-password"
                         required
+                        minlength="6"
+                        pattern="^\S+$"
+                        title="La contraseña debe tener al menos 6 caracteres y no puede contener espacios."
                       />
                     </div>
                     <div class="mb-3">
                       <label for="edit-date" class="form-label">Fecha</label>
                       <input
+                        id="edit-date"
                         type="date"
                         class="form-control"
-                        id="edit-date"
                         required
+                        title="Por favor, selecciona una fecha válida."
                       />
                     </div>
                     <div class="mb-3">
@@ -179,6 +197,7 @@
                         id="edit-long-text"
                         rows="3"
                         required
+                        title="Por favor, introduce un comentario."
                       ></textarea>
                     </div>
                   </div>
@@ -196,10 +215,11 @@
                     <div class="mb-3">
                       <label for="edit-image" class="form-label">Subir nueva imagen</label>
                       <input
+                        id="edit-image"
+                        accept="image/jpeg, image/png, image/gif"
                         type="file"
                         class="form-control"
-                        id="edit-image"
-                        accept="image/*"
+                        title="Solo se permiten imágenes en formato JPG, PNG o GIF."
                       />
                     </div>
                   </div>
@@ -230,6 +250,8 @@
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
     ></script>
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="./scripts.js"></script>
   </body>
 </html>

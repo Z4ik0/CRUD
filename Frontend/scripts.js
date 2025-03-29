@@ -47,14 +47,22 @@ document.getElementById("formulario").addEventListener("submit", async (e) => {
   const archivoImagen = imagenInput.files[0];
 
   if (!archivoImagen) {
-    alert("Por favor selecciona una imagen.");
+    Swal.fire({
+      icon: "warning",
+      title: "Imagen requerida",
+      text: "Por favor selecciona una imagen.",
+    });
     return;
   }
 
   // Validar el tipo de archivo
   const tiposPermitidos = ["image/jpeg", "image/png", "image/gif"];
   if (!tiposPermitidos.includes(archivoImagen.type)) {
-    alert("El formato de la imagen no es válido. Solo se permiten JPG, PNG y GIF.");
+    Swal.fire({
+      icon: "error",
+      title: "Formato no válido",
+      text: "El formato de la imagen no es válido. Solo se permiten JPG, PNG y GIF.",
+    });
     return;
   }
 
@@ -72,12 +80,23 @@ document.getElementById("formulario").addEventListener("submit", async (e) => {
       });
 
       const result = await response.json();
-      alert(result.message);
+
+      Swal.fire({
+        icon: "success",
+        title: "Registro guardado",
+        text: result.message,
+        timer: 3000,
+        timerProgressBar: true,
+      });
 
       // Actualizar la tabla después de guardar
       obtenerUsuarios(base);
     } catch (error) {
-      alert("Error al enviar los datos");
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "No se pudo enviar los datos.",
+      });
       console.error(error);
     }
   };
@@ -237,7 +256,11 @@ async function cambiarBaseDeDatos(data) {
     });
 
     const result = await response.json();
-    alert(result.message);
+    Swal.fire({
+      icon: "success",
+      title: "Base de datos cambiada",
+      text: result.message,
+    });
 
     // Actualizar la tabla después de cambiar la base de datos
     obtenerUsuarios(data.newBase);
@@ -246,6 +269,11 @@ async function cambiarBaseDeDatos(data) {
     const modal = bootstrap.Modal.getInstance(document.getElementById("editModal"));
     modal.hide();
   } catch (error) {
+    Swal.fire({
+      icon: "error",
+      title: "Error",
+      text: "No se pudo cambiar la base de datos.",
+    });
     console.error("Error al cambiar la base de datos:", error);
   }
 }
@@ -259,7 +287,11 @@ async function guardarCambios(data) {
     });
 
     const result = await response.json();
-    alert(result.message);
+    Swal.fire({
+      icon: "success",
+      title: "Guardado",
+      text: result.message,
+    });
 
     // Actualizar la tabla después de editar
     obtenerUsuarios(data.base);
@@ -268,24 +300,72 @@ async function guardarCambios(data) {
     const modal = bootstrap.Modal.getInstance(document.getElementById("editModal"));
     modal.hide();
   } catch (error) {
+    Swal.fire({
+      icon: "error",
+      title: "Error",
+      text: "No se pudo guardar el registro.",
+    });
     console.error("Error al guardar los cambios:", error);
   }
 }
 
 async function eliminarRegistro({ id, base }) {
-  if (confirm("¿Estás seguro de que deseas eliminar este registro?")) {
+  const result = await Swal.fire({
+    title: "¿Estás seguro?",
+    text: "No podrás revertir esta acción.",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Sí, eliminar",
+    cancelButtonText: "Cancelar",
+  });
+
+  if (result.isConfirmed) {
     try {
       const response = await fetch(`http://localhost:3000/api/data/${id}/${base}`, {
         method: "DELETE",
       });
 
       const result = await response.json();
-      alert(result.message);
+      Swal.fire({
+        icon: "success",
+        title: "Eliminado",
+        text: result.message,
+      });
 
       // Actualizar la tabla después de eliminar
       obtenerUsuarios(base);
     } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "No se pudo eliminar el registro.",
+      });
       console.error("Error al eliminar el registro:", error);
     }
   }
 }
+
+function validarArchivo(input) {
+  const tiposPermitidos = ["image/jpeg", "image/png", "image/gif"];
+  const archivo = input.files[0]; // Obtener el archivo seleccionado
+
+  if (archivo && !tiposPermitidos.includes(archivo.type)) {
+    Swal.fire({
+      icon: "error",
+      title: "Archivo no válido",
+      text: "Solo se permiten imágenes en formato JPG, PNG o GIF.",
+    });
+    input.value = ""; // Limpiar el campo si el archivo no es válido
+  }
+}
+
+// Agregar el evento onchange al campo de archivo
+document.getElementById("image").addEventListener("change", function () {
+  validarArchivo(this);
+});
+
+document.getElementById("edit-image").addEventListener("change", function () {
+  validarArchivo(this);
+});

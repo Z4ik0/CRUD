@@ -221,7 +221,11 @@ async function actualizarRegistro(data) {
     });
 
     const result = await response.json();
-    alert(result.message);
+    Swal.fire({
+      icon: "success",
+      title: "Registro actualizado",
+      text: result.message,
+    });
 
     // Actualizar la tabla después de editar
     obtenerUsuarios(data.base);
